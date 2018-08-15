@@ -51,7 +51,8 @@
                 loadForm: false,
                 onSelect: function(selectedQuestions) {
                     //see console log to inspect question properties
-                    console.log(selectedQuestions[0]);
+                    console.log('Full Object:', selectedQuestions[0]);
+                    console.log('Field Name:', `q${selectedQuestions[0].qid}_${selectedQuestions[0].name}`)
                 },
                 onRender: function() {
                 },
