@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Question Picker</title>
+    <script src='https://js.jotform.com/JotForm.min.js'></script>
+    <script src='https://js.jotform.com/FormPicker.min.js'></script>
+    <script src='https://js.jotform.com/QuestionPicker.min.js'></script>
+    <script>
+        function authorize(){
+            if(/*Check if user not authorized before*/1){
+                JF.initialize({
+                    enableCookieAuth:true,
+                    appName: "Process Maker",
+                    accessType:"readOnly"
+                });
+                JF.login(
+                    function(){
+                      console.log('Success!')
+                       formPicker();
+                    },
+                    function(err){
+                        console.log(err);
+                    }
+                );
+            }else/*If user has authorized before*/{
+                JF.initialize({
+                    apiKey:'API_KEY'//Fetch stored API Key from previous authorization
+                });
+                formPicker();
+            }
+        }
+        function formPicker(){
+            JF.FormPicker({
+                multiSelect:false,
+                infinite_scroll:true,
+                search: true,
+                onSelect:function(res){
+                    pickQuestions(res[0].id);
+                }
+            })
+        };
+        function pickQuestions(formID){
+            JF.QuestionPicker(formID,{
+                sort: 'order',
+                sortType: 'ASC',
+                title: 'Question Picker',
+                multiSelect: false,
+                ignore_types: [],
+                loadForm: false,
+                onSelect: function(selectedQuestions) {
+                    //see console log to inspect question properties
+                    console.log(selectedQuestions[0]);
+                },
+                onRender: function() {
+                },
+                onClose: function() {
+                },
+                onLoad: function(resp) {
+                }
+            });
+        }
+       
+    
+    </script>
+</head>
+<body>
+    <button onclick="authorize()">Pick Questions</button>
+</body>
+</html>
