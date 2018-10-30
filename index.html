@@ -37,7 +37,9 @@
                 infinite_scroll:true,
                 search: true,
                 onSelect:function(res){
-                    console.log(res);
+                    JF.getFormQuestions(res[0].id, (res)=>{
+                        console.log(res);//Your form questions are here
+                    });
                 }
             })
         };
